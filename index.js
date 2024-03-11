@@ -17,6 +17,10 @@ app.get('/api/users', (req, res) => {
 // POST user
 
 // GET user by id
+app.get('/api/users/:id', (req, res) => {
+  const user = users.find((u) => u.id == req.params.id) // no {curly braces}
+  if(user) res.json(user)
+})
 
 // PATCH/PUT user by id
 
