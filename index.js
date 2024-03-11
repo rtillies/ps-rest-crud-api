@@ -23,6 +23,25 @@ app.get('/api/users', (req, res, next) => {
 })
 
 // POST user
+app.post('/api/users', (req, res) => {
+  if(req.body.name && req.body.username && req.body.email) {
+    if (users.find((u) => u.username == req.body.username)) {
+      res.json({ error: `Username already exists: ${username}`})
+      return
+    }
+    const newUser = {
+      id: users[users.length - 1].id + 1,
+      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email
+    }
+    users.push(newUser)
+    res.json(users[users.length - 1])
+    console.log(`Successful POST: ${newUser.id} ${newUser.username}`);
+  } else {
+    res.json({ error: 'Insufficient Data'})
+  }
+})
 
 // GET user by id
 app.get('/api/users/:id', (req, res, next) => {
@@ -32,6 +51,24 @@ app.get('/api/users/:id', (req, res, next) => {
 })
 
 // PATCH/PUT user by id
+app.patch('/api/users/:id', (req, res, next) => {
+  // Within the PATCH request route, we allow the client
+  // to make changes to an existing user in the database.
+  const user = users.find((u, i) => {
+    // console.log(u.id, req.params.id);
+    if (u.id == req.params.id) {
+      // console.log(`Found ${u.id}`);
+      for (const key in req.body) {
+        // console.log('users[i][key]', users[i][key]);
+        // console.log('req.body[key]', req.body[key]);
+        users[i][key] = req.body[key];
+      }
+      return true;
+    }
+  });
+  if(user) res.json(user)
+  else next();
+})
 
 // DELETE user
 
