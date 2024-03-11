@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 /* USERS */
 // GET all users
-app.get('/api/users', (req, res) => {
+app.get('/api/users', (req, res, next) => {
   res.json(users)
 })
 
@@ -37,7 +37,7 @@ app.get('/api/users/:id', (req, res, next) => {
 
 /* POSTS */
 // GET all posts
-app.get('/api/posts', (req, res) => {
+app.get('/api/posts', (req, res, next) => {
   res.json(posts)
 })
 
