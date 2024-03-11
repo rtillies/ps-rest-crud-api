@@ -2,15 +2,15 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const bodyParser = require('body-parser');
 const users = require('./data/users')
 const posts = require('./data/posts')
 
 /* MIDDLEWARE */
-// Middleware for 404 error
-// app.use((req, res) => {
-//   res.status(404);
-//   res.json({ error: "Resource Not Found" });
-// });
+
+// BodyParser
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json({extended: true}))
 
 app.get('/', (req, res) => {
   res.send('Work in progress')
