@@ -22,7 +22,9 @@ app.get('/api/users', (req, res, next) => {
   res.json(users)
 })
 
-// POST user
+// POST new user
+// Within the POST request route, we create a new user with the data given by the client.
+// We should also do some more robust validation here, but this is just an example for now.
 app.post('/api/users', (req, res) => {
   if(req.body.name && req.body.username && req.body.email) {
     if (users.find((u) => u.username == req.body.username)) {
@@ -51,9 +53,8 @@ app.get('/api/users/:id', (req, res, next) => {
 })
 
 // PATCH/PUT user by id
+// Within the PATCH request route, we allow the client to make changes to an existing user in the database.
 app.patch('/api/users/:id', (req, res, next) => {
-  // Within the PATCH request route, we allow the client
-  // to make changes to an existing user in the database.
   const user = users.find((u, i) => {
     // console.log(u.id, req.params.id);
     if (u.id == req.params.id) {
@@ -71,6 +72,7 @@ app.patch('/api/users/:id', (req, res, next) => {
 })
 
 // DELETE user
+// The DELETE request route simply removes a resource.
 app.delete('/api/users/:id', (req, res, next) => {
   const user = users.find((u, i) => {
     if (u.id == req.params.id) {
