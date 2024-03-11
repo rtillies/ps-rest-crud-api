@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
   res.send('Work in progress')
 })
 
+/* USERS */
 // GET all users
 app.get('/api/users', (req, res) => {
   res.json(users)
@@ -26,6 +27,17 @@ app.get('/api/users/:id', (req, res) => {
 
 // DELETE user
 
+/* POSTS */
+// GET all posts
+app.get('/api/posts', (req, res) => {
+  res.json(posts)
+})
+
+// GET post by id
+app.get('/api/posts/:id', (req, res) => {
+  const post = posts.find((p) => p.id == req.params.id) // no {curly braces}
+  if(post) res.json(post)
+})
 
 
 app.listen(port, () => {
